@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>登录</title>
+    <style>
+        body{
+            margin:0 auto;
+            width:100%;
+        }
+        .col-xs-12 #sno{
+            margin-top: 15%;
+            background: url(img/user.png) no-repeat;
+            background-position: 1px;
+            background-size: 3.4rem;
+            padding-left: 42px;
+        }
+        .col-xs-12 #stuname{
+            background: url(img/nam.png) no-repeat;
+            background-position: 7px;
+            background-size: 2rem;
+            padding-left: 42px;
+        }
+        .col-xs-12 #tel{
+            background: url(img/tel.png) no-repeat;
+            background-position: 5px;
+            background-size: 2.4rem;
+            padding-left: 42px;
+        }
+        .col-xs-12 #ema{
+            background: url(img/ema.png) no-repeat;
+            background-position: 7px;
+            background-size: 2.3rem;
+            padding-left: 42px;
+        }
+        .container-fluid {
+            margin-top: -50px;
+        }
+        #login{
+            border-radius: 44px;
+            margin: 0 auto;
+            width:80%;
+            height: 41px;
+            background: #3eda69;
+            color: white;
+            margin-top: 6vh;
+            margin-bottom: 30px;
+        }
+        input {
+            -webkit-appearance:none;
+        }
+        .form-control{
+            border-radius:44px!important;
+            display: block !important;
+            width: 80%!important;
+            height: 41px !important;
+            margin:0 auto;
+            box-shadow:none!important;
+        }
+        .code{
+            width: 23%;
+            height: 41px;
+            background-color: #6dd3ec;
+            text-align: center;
+            color: white;
+            font-size: 12px;
+            line-height: 42px;
+            float: right;
+            margin: -41px 10%;
+            border-radius: 0 44px 44px 0;
+        }
+        #pic{
+            background: url(img/login.png);
+            background-size: 100vw;
+            background-repeat: no-repeat;
+            background-position: 0 7vh;
+        }
+        .eye{
+
+        }
+        .toast{
+            text-align: center;
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 8px 10px;
+            background-color: rgba(0,0,0,.5);
+            color: #fff;
+            border-radius: 10px;
+            z-index: 9999;
+            font-size: 16px;
+            display: none;
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/checkinfo.js"></script>
+    <script>
+        $(function(){
+            var check = new CheckInfo();
+            $('#login').click(function(){
+                var sno     = $.trim($('#sno').val());
+                var stuname = $.trim($('#stuname').val());
+                var tel     = $.trim($('#tel').val());
+                var ema     = $.trim($('#ema').val());
+                var code    = $.trim($('#identiyingCode').val());
+                var pas     = $.trim($('#password').val());
+                var repas   = $.trim($('#repassword').val());
+                var sn      =/[^\d]+/;
+                var reg     =  /^1(3|4|5|6|7|8|9)\d{9}$/ ;
+                var em      =  /^\w+\@[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/i;
+                console.log(sno);
+                if(sno === ''){
+                    check.toast('请输入学号');
+                    $('#sno').focus();
+                    return;
+                }
+                if(stuname === ''){
+                    check.toast('请输入姓名');
+                    $('#stuname').focus();
+                    return;
+                }
+                if(!sn.test(stuname)){
+                    check.toast('请输入正确的姓名');
+                    $('#stuname').focus();
+                    return;
+                }
+                if(tel === '') {
+                    check.toast('请输入手机号');
+                    $('#tel').focus();
+                    return;
+                }
+                if(!reg.test(tel)){
+                    check.toast('请输入正确的手机号');
+                    $('#tel').focus();
+                    return;
+                }
+                if(ema=== '') {
+                    check.toast('请输入电子邮件地址');
+                    $('#ema').focus();
+                    return;
+                }
+                if(!em.test(ema)){
+                    check.toast('请输入正确的邮件地址');
+                    $('#ema').focus();
+                    return;
+                }
+                if(pas === ''){
+                    check.toast('请输入密码');
+                    $('#password').focus();
+                    return;
+                }
+                if(pas.length<6|| pas.length>16){
+                    check.toast('密码长度为6至16');
+                    $('#pas').focus();
+                    return ;
+                }
+                if(repas!=pas){
+                    check.toast('两次输入的密码不一致！');
+                    return false;
+                }
+                if(code === '') {
+                    check.toast('请输入验证码');
+                    $('#identiyingCode').focus();
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "{jlzcms::U('Hq/login',array('token'=>$token,'wecha_id'=>$wecha_id))}",
+                    data: {'sno':sno,'stuname':stuname,'tel':tel,'code':code},
+                    dataType: "json",
+                    success: function(data) {
+                        if(data.status == 1){
+                            check.toast(data.msg);
+                            window.location.href = data.url;
+                        }else{
+                            check.toast(data.msg);
+                        }
+                    }
+                });
+            });
+
+            //获取验证码
+            $(".code").click(function(){
+                var tel = $('#tel').val();
+                var reg =  /^1(3|4|5|6|7|8)\d{9}$/ ;
+//                var reg =  /^1[345789]\d{9}$/ ;
+//
+                if(tel === '') {
+                    check.toast('请输入手机号');
+                    $('#tel').focus();
+                    return;
+                }
+                if(!reg.test(tel)){
+                    check.toast('请输入正确的手机号');
+                    $('#tel').focus();
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "{jlzcms::U('Hq/getsms',array('token'=>$token,'wecha_id'=>$wecha_id))}",
+                    data: {tel:tel},
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data);
+                        if(data.status == 1){
+                            var i = 60;
+                            $(".code").html(i+'s重新获取');
+                            $(".code").attr('disabled','true');
+                            var time = setInterval(function () {
+                                i--;
+                                $(".code").html(i+'s重新获取');
+                                $(".code").attr('disabled','true');
+                                if(i<=0){
+                                    clearInterval(time);
+                                    $(".code").html('获取验证码');
+                                    $(".code").removeClass('disabled');
+                                }
+                            },1000)
+                        }else{
+                            check.toast(data.msg);
+                        }
+                    }
+                });
+            })
+        })
+
+        //        function showPas(){
+        //            if($("#password").type()==password){
+        //                $("#password").type()==text;
+        //                $(".eye").attr("src","img/ema.png");
+        //            }
+        //                else($("#password").type()=="password";
+        //                $(".eye").attr("src","img/nam.png")
+        //                )
+        //        }
+    </script>
+</head>
+
+<body>
+<div class="container-fluid" id="pic">
+    <div class="row">
+        <div class="col-xs-12" style="margin-top: 47vh;">
+            <div class="form-group">
+                <input type="number" class="form-control" id="sno" placeholder="学号">
+            </div>
+            <div class="form-group ">
+                <input type="text" class="form-control" id="stuname" placeholder="姓名">
+            </div>
+            <div class="form-group ">
+                <input type="tel" class="form-control" id="tel" placeholder="手机号" >
+            </div>
+            <div class="form-group ">
+                <input type="email" class="form-control" id="ema" placeholder="邮箱地址" >
+            </div>
+            <div class="form-group ">
+                <input type="password" class="form-control" id="password" placeholder="密码" >
+                <!--<img src="img/nam.png" class="eye" onclick="showPas()"></div>-->
+            </div>
+            <div class="form-group ">
+                <input type="password" class="form-control" id="repassword" placeholder="再次确认密码" >
+            </div>
+            <div class="form-group ">
+                <input type="number" class="form-control " id="identiyingCode" placeholder="请输入您收到的验证码" >
+                <div class="code">获取验证码</div>
+            </div>
+            <button  class="btn btn-block " id="login">登录</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
