@@ -69,6 +69,45 @@
             margin-left: 2rem;
             font-size: 16px;
         }
+        /*弹出界面*/
+        #toast_view{
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-left: -250px;
+            margin-top: -200px;
+            z-index:1002;
+        }
+        .go_close{
+            text-align: center;
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            width: 2rem;
+            height: 2rem;
+            cursor: pointer;
+            color: #fff;
+            border: 2px solid #fff;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+        }
+        .go_btn{
+            background:#12bea8;
+            color: white;
+            width:11rem;
+            margin-top: 2rem;
+            margin-left: 2rem;
+            margin-right: 2rem;
+            font-size: 16px;
+        }
+        .go_balance{
+            background-color: rgba(0,0,0,.4);
+            width: 35rem;
+            text-align: center;
+            padding: 2rem;
+        }
     </style>
 </head>
 <body>
@@ -86,9 +125,22 @@
             <div  class="closer" onclick="CloseDiv('toast_picture','fade')">
                 &times;
             </div>
-            <img src="imgs/tcc.jpg" style="width:500px">
+            <img src="img/tcc.jpg" style="width:500px">
         </div>
+        <!--弹出层时背景层DIV-->
+        <button onclick="ShowDivs('toast_view')">弹出界面</button>
 
+        <div id="toast_view" >
+            <div  class="go_close" onclick="CloseDivs('toast_view')">
+                <!--<img src="img/closer.png" style="width: 30px">-->
+                &times;
+            </div>
+            <div class="go_balance">
+                <h4 style="color: #fff">余额不足请前往充值</h4>
+                <button id="go_cancel" class="btn go_btn">取消</button>
+                <button id="go_recharge" class="btn go_btn">前往充值</button>
+            </div>
+        </div>
     </div>
 </div>
 </body>
@@ -137,5 +189,17 @@
         $("#toast_picture").fadeOut(1000);
         $("#fade").fadeOut(1000);
     };
+//    弹出界面
+
+        //弹出隐藏层
+        function ShowDivs( ){
+            $("#toast_view").fadeIn(1000);
+        };
+    //关闭弹出层
+    function CloseDivs( )
+    {
+        $("#toast_view").fadeOut(1000);
+    };
+
 </script>
 </html>
