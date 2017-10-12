@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>复选框</title>
+    <!--<link rel="stylesheet" href="dist/css/checkboxes.min.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        /*圆按钮*/
+        .ckbx-style-8 {
+            font-size: 24px;
+        }
+        .ckbx-style-8 input[type=checkbox] {
+            visibility: hidden;
+            display: none;
+        }
+        .ckbx-style-8 label {
+            width: 2em;
+            height: 1em;
+            position: relative;
+            cursor: pointer;
+            display: block;
+        }
+        .ckbx-style-8 label:before {/*红色背景*/
+            content: '';
+            position: absolute;
+            width: 2em;
+            height: 1em;
+            left: 0.1em;
+            transition: background 0.1s ease;
+            background: #F25F5C;
+            border-radius: 50px;
+            box-shadow: inset 0px 1px 1px rgba(171, 66, 63, 0.5);
+        }
+        .ckbx-style-8 label:after {/*白圈*/
+            content: '';
+            position: absolute;
+            width: 1em;
+            height: 1em;
+            border-radius: 50px;
+            left: 0;
+            transition: all 0.2s ease;
+            box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+            background: #fcfff4;
+            animation: switch-off .2s ease-out; /*重新加载时变大一点的动画*/
+            z-index: 2;
+        }
+        .ckbx-style-8 input[type=checkbox]:checked + label:before {
+        background: #70C1B3;
+        box-shadow: inset 0px 1px 1px rgba(84, 152, 140, 0.5);
+        }
+        .ckbx-style-8 input[type=checkbox]:checked + label:after {
+        animation: switch-on .2s ease-out;
+        left: 1.1em;
+        }
+        [class^=ckbx].ckbx-xlarge {
+        font-size: 2.5em;
+        }
+        @keyframes switch-on {
+            50% {
+                transform: scaleX(1.3);
+            }
+        }
+
+        @keyframes switch-off {
+            50% {
+                transform: scaleX(1.3);
+            }
+        }
+        /*打勾*/
+        @charset "UTF-8";
+        .b-checkbox {
+            position: relative;
+        }
+
+        .b-checkbox label {
+            padding-left: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .b-checkbox label::before {
+            content: "";
+            position: absolute;
+            width: 17px;
+            height: 17px;
+            left: 0;
+            top: 1px;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+            background-color: #fff;
+            transition: background .1s ease-in-out;
+        }
+
+        .b-checkbox label::after {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            left: 3px;
+            top: 3px;
+            font-size: 12px;
+            color: #363636;
+        }
+
+        .b-checkbox input[type="checkbox"],
+        .b-checkbox input[type="radio"] {
+            opacity: 0;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .b-checkbox input[type="checkbox"]:focus + label::before,
+        .b-checkbox input[type="radio"]:focus + label::before {
+            outline: thin dotted;
+            outline: 5px auto -webkit-focus-ring-color;
+            outline-offset: -2px;
+        }
+
+        .b-checkbox input[type="checkbox"]:checked + label::after,
+        .b-checkbox input[type="radio"]:checked + label::after {
+            font-family: "FontAwesome";
+            content: "";
+        }
+
+        .b-checkbox input[type="checkbox"]:disabled,
+        .b-checkbox input[type="radio"]:disabled {
+            cursor: not-allowed;
+        }
+
+        .b-checkbox input[type="checkbox"]:disabled + label,
+        .b-checkbox input[type="radio"]:disabled + label {
+            opacity: 0.65;
+        }
+
+        .b-checkbox input[type="checkbox"]:disabled + label::before,
+        .b-checkbox input[type="radio"]:disabled + label::before {
+            background-color: whitesmoke;
+            cursor: not-allowed;
+        }
+
+        .b-checkbox.is-circular label::before {
+            border-radius: 50%;
+        }
+
+        .b-checkbox.is-inline {
+            display: inline-block;
+            font-weight: normal;
+        }
+
+        .b-checkbox.is-inline + .is-inline {
+            margin-left: 10px;
+        }
+        .is-warning input[type="checkbox"]:checked + label::before {
+            background-color: #ffdd57;
+            border-color: #ffdd57;
+        }
+
+        .is-warning input[type="checkbox"]:checked + label::after {
+            color: #fff;
+        }
+        .b-checkbox.is-circular label::before {
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<div class="ckbx-style-8 ckbx-xlarge">
+    <input type="checkbox" id="ckbx-size-4" value="0" name="ckbx-square-1">
+    <label for="ckbx-size-4"></label>
+</div>
+
+<div class="field">
+    <p class="control">
+    <div class="b-checkbox is-warning is-circular">
+        <input id="checkbox1" class="styled" checked type="checkbox">
+        <label for="checkbox1">
+            Is Warning
+        </label>
+    </div>
+    </p>
+</div>
+<div class="field">
+    <p class="control">
+    <div class="b-checkbox is-warning">
+        <input id="checkbox2" class="styled" checked type="checkbox">
+        <label for="checkbox2">
+            Is Warning
+        </label>
+    </div>
+    </p>
+</div>
+</body>
+</html>
