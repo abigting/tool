@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对话框</title>
+    <style>
+        body{
+            color: #fff;
+        }
+        /*对话框一*/
+        .test{width:300px; padding:30px 20px; margin-left:60px; background:#12bea8; position:relative;color: #fff}
+        .test span{width:0; height:0; font-size:0; overflow:hidden; position:absolute;}
+        .test span.bot{
+            border-width:20px;
+            border-style:solid;
+            border-color:#ffffff #12bea8 #12bea8 #ffffff;
+            left:-40px;
+            top:40px;
+        }
+        .test span.top{
+            border-width:10px 20px;
+            border-style:dashed solid solid dashed;
+            border-color:transparent #ffffff #ffffff transparent;
+            left:-40px;
+            top:60px;
+        }
+        /*对话框二*/
+        .test2{width:300px; padding:30px 20px; border:5px solid #12bea8; position:relative;}
+        .test2 span{width:0; height:0; font-size:0; overflow:hidden; position:absolute;}
+        .test2 span.bot2{
+            border-width:20px;
+            border-style:solid dashed dashed;
+            border-color:#12bea8 transparent transparent;
+            left:80px;
+            bottom:-40px;
+        }
+        .test2 span.top2{
+            border-width:20px;
+            border-style:solid dashed dashed;
+            border-color:#ffffff transparent transparent;
+            left:80px;
+            bottom:-33px;
+        }
+        /*气泡对话框效果*/
+        .test3{
+            width:300px;
+            padding:80px 20px;
+            margin-left:100px;
+            background:#12bea8;
+            -webkit-border-top-left-radius:220px 120px;
+            -webkit-border-top-right-radius:220px 120px;
+            -webkit-border-bottom-right-radius:220px 120px;
+            -webkit-border-bottom-left-radius:220px 120px;
+            -moz-border-radius:220px / 120px;
+            border-radius:220px / 120px;
+            position:relative;
+        }
+        .test3 span{width:0; height:0; font-size:0; background:#12bea8; overflow:hidden; position:absolute;}
+        .test3 span.bot3{
+            width:30px;
+            height:30px;
+            -moz-border-radius:30px;
+            -webkit-border-radius:30px;
+            border-radius:30px;
+            left:10px;
+            bottom:-20px;
+        }
+        .test3 span.top3{
+            width:15px;
+            height:15px;
+            -moz-border-radius:15px;
+            -webkit-border-radius:15px;
+            border-radius:15px;
+            left:0px;
+            bottom:-40px;
+        }
+        /*对话框四*/
+        p.speech
+        {
+            position: relative;
+            width: 200px;
+            height: 100px;
+            text-align: center;
+            line-height: 100px;
+            background-color: #fff;
+            border: 8px solid #12bea8;
+            -webkit-border-radius: 30px;
+            -moz-border-radius: 30px;
+            border-radius: 30px;
+            -webkit-box-shadow: 2px 2px 4px #12bea8;
+            -moz-box-shadow: 2px 2px 4px #12bea8;
+            box-shadow: 2px 2px 4px #12bea8;
+        }
+        p.speech:before
+        {
+            content: ' ';
+            position: absolute;
+            width: 0;
+            height: 0;
+            left: 30px;
+            top: 100px;
+            border: 25px solid;
+            border-color: #12bea8 transparent transparent #12bea8;
+        }
+        p.speech:after
+        {
+            content: ' ';
+            position: absolute;
+            width: 0;
+            height: 0;
+            left: 38px;
+            top: 100px;
+            border: 15px solid;
+            border-color: #fff transparent transparent #fff;
+        }
+        /*对话框五*/
+        .test4{
+            position: relative;
+            width: 400px;
+            height: 100px;
+            text-align: center;
+            line-height: 100px;
+            background-color: #fff;
+            border: 8px solid #12bea8;
+            margin-left: 4rem;
+        }
+       .test4:before
+        {
+            content: ' ';
+            position: absolute;
+            left: -50px;
+            top:23px;
+            width: 0;
+            height: 0;
+            border-top: 25px solid transparent;
+            border-right:50px solid #12bea8;
+            border-bottom:25px solid transparent;
+       }
+        .test4:after
+        {
+            content: ' ';
+            position: absolute;
+            left: -37px;
+            top:23px;
+            width: 0;
+            height: 0;
+            border-top: 25px solid transparent;
+            border-right:50px solid #fff;
+            border-bottom:25px solid transparent;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+<div class="test">
+    <span class="bot"></span>
+    <span class="top"></span>
+    CSS “边框法”实现气泡对话框效果一
+</div>
+<br>
+<div class="test2">
+    <span class="bot2"></span>
+    <span class="top2"></span>
+    CSS “边框法”实现气泡对话框效果二
+</div>
+<br>
+<div class="test3">
+    <span class="bot3"></span>
+    <span class="top3"></span>
+    CSS3 border-radius实现气泡对话框效果
+</div>
+<br>
+<br>
+<p class="speech"></p>
+<br>
+<div class="test4">
+    CSS3 border-radius实现气泡对话框效果
+</div>
+</html>
