@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>waterWave</title>
+    <style>
+        .wave{
+            position:relative;
+            width: 200px;
+            height:200px;
+            background-color: rgb(118,218,255);
+            border-radius:50%;
+        }
+        ::before,
+        ::after{
+             content: "";
+             position: absolute;
+             left: 50%;
+             width: 400px;
+             height: 400px;
+             top:0;
+             background-color: rgba(255,255,255,.4);
+             border-radius: 45%;
+             -webkit-transform: translate(-50%,-70%) rotate(0);
+             -moz-transform: translate(-50%,-70%) rotate(0);
+             -ms-transform: translate(-50%,-70%) rotate(0);
+             -o-transform: translate(-50%,-70%) rotate(0);
+             transform: translate(-50%,-70%) rotate(0);
+             animation:rotate 6s linear infinite;
+             z-index:10;
+         }
+        ::after{
+             border-radius: 47%;
+             background-color: rgba(255,255,255,.9);
+             transform:translate(-50%,-70%) rotate(0);
+             animation:rotate 10s linear -5s infinite;
+             z-index: 20;
+         }
+        @keyframes rotate{
+            50%{
+                -webkit-transform: translate(-50%,-73%) rotate(180deg);
+                -moz-transform: translate(-50%,-73%) rotateZ(180deg);
+                -ms-transform: translate(-50%,-73%) rotateZ(180deg);
+                -o-transform: translate(-50%,-73%) rotateZ(180deg);
+                transform: translate(-50%,-73%) rotateZ(180deg);
+            }
+            100%{
+                -webkit-transform: translate(-50%,-70%) rotateZ(360deg);
+                -moz-transform: translate(-50%,-70%) rotateZ(360deg);
+                -ms-transform: translate(-50%,-70%) rotateZ(360deg);
+                -o-transform: translate(-50%,-70%) rotateZ(360deg);
+                transform: translate(-50%,-70%) rotateZ(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class ="container">
+    <div class ="wave"></div>
+</div>
+
+</body>
+</html>
