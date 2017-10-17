@@ -60,10 +60,10 @@
             -moz-border-radius: 50%;
             border-radius: 50%;
         }
-        button{
+        .btn{
             background:#12bea8;
             color: white;
-            width:40vw;
+            width:8rem;
             /* left:50%; */
             margin-top: 2rem;
             margin-left: 2rem;
@@ -113,11 +113,12 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-        <button id="Submit0">简单弹窗</button>
+        <button id="Submit0" class="btn">简单弹窗</button>
     </div>
     <div class="row">
-        <button id="Button1" value="点击弹出层" onclick="ShowDiv('toast_picture','fade')">图片弹窗</button>
-
+        <button id="Button1" value="点击弹出层" onclick="ShowDiv('toast_picture','fade')" class="btn">图片弹窗</button>
+    </div>
+    <div class="row">
         <!--弹出层时背景层DIV-->
         <div id="fade" class="black_overlay">
         </div>
@@ -128,7 +129,7 @@
             <img src="img/tcc.jpg" style="width:500px">
         </div>
         <!--弹出层时背景层DIV-->
-        <button onclick="ShowDivs('toast_view')">弹出界面</button>
+        <button onclick="ShowDivs('toast_view')" class="btn">弹出界面</button>
 
         <div id="toast_view" >
             <div  class="go_close" onclick="CloseDivs('toast_view')">
