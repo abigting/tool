@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <link href="fei_histogram.css" rel="stylesheet" type="text/css" />
+    <script src="fei_histogram.js" type="text/javascript"></script>
+    <style>
+        .fei_histogram_container_style
+        {
+            background: none repeat-x scroll 0 0 #FFFFFF !important;
+            border: 2px solid #ccc;
+            list-style: none outside none;
+            margin: 0 4.8px 16px 35px;
+            padding: 0;
+            position: relative;
+        }
+        .fei_histogram_container_rows_style
+        {
+            left: 0;
+            width: 100%;
+            z-index: 1;
+            bottom: 0;
+            position: absolute;
+            text-align: center;
+        }
+        .fei_histogram_container_rows_style div
+        {
+            border-top: medium none;
+            position: relative;
+            text-align: center;
+            list-style: none outside none;
+            border-top: 1px dotted #ccc;
+        }
+        .fei_histogram_container_rows_style div p
+        {
+            position: absolute;
+            right: 101%;
+            top: -11pt;
+            text-align: center;
+            list-style: none outside none;
+        }
+
+        .fei_histogram_container_col_style
+        {
+            bottom: 0px;
+            position: absolute;
+            text-align: center;
+            border-right: 1px dotted #ccc;
+            z-index: 2;
+            list-style: none outside none;
+        }
+
+        .fei_histogram_container_col_style ul
+        {
+            list-style: none outside none;
+            text-align: center;
+        }
+
+        .fei_histogram_container_col_style li
+        {
+            color: #000000;
+            bottom: 0px;
+            position: absolute;
+            text-align: center;
+            list-style: none outside none;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var vbar = new fei.jsimg.histogram();
+            vbar.x = [20, 40, 60, 80, 100, 120];
+            vbar.y = ["Y1", "Y2", "Y3", "Y4", "Y5", "Y6","Y7"];
+            vbar.data = [22, 33, 38, 26, 59, 92,96];
+            //            vbar.width = 500;
+            //            vbar.height = 200;
+            //            vbar.dataformat = "{0}%";
+            vbar.render("vbarTest");
+        }
+    </script>
+</head>
+<body>
+<div id="vbarTest">
+    <script>
+        fei = { jsimg: {} }
+        fei.jsimg.histogram = function (x, y, data) {
+            this.width = 800;                                                       //图片宽度
+            this.height = 300;                                                      //图片高度
+            this.barwidth = 50;                                                     //柱子宽度
+            this.x = x || [1, 2, 3, 4, 5, 6];                                       //x轴刻度
+            this.y = y || ["ZB1", "ZB2", "ZB3", "ZB4", "ZB5", "ZB6"];               //y轴刻度
+            this.data = data || [0, 0, 0, 0, 0, 0];                                 //数据
+            this.dataformat = "";                                                   //x轴和数据的格式：如 可表示为 "{0}%"
+            this.vbarBg = "http://www.cnblogs.com/App_Themes/Default/Images/Primacy/kaohe.gif";      //柱子背景图路径
+            this.isshowHq = true;                                                   //是否显示红旗
+            this.hqImg = "<img src='http://www.cnblogs.com/App_Themes/Default/Images/Primacy/hongqi.gif' Width='36px' Height='32px'/>"; //红旗图片
+        }
+
+        fei.jsimg.histogram.prototype.draw = function () {
+            this._set_max_value();
+            this._draw_container();
+            this._draw_container_rows();
+            this._draw_container_cols();
+        }
+
+        fei.jsimg.histogram.prototype._set_max_value = function () {
+            this.max_x = 0;
+            this.max_data = 0;
+            for (var i = 0; i < this.x.length; i++) {
+                if (this.x[i] >= this.max_x) {
+                    this.max_x = this.x[i];
+                }
+            }
+            for (var i = 0; i < this.data.length; i++) {
+                if (this.data[i] >= this.max_data) {
+                    this.max_data = this.data[i];
+                }
+            }
+        }
+
+        fei.jsimg.histogram.prototype._draw_container = function () {
+            this.histogramimg = document.createElement("ul"); //容器：ul
+            this.addclass(this.histogramimg, "fei_histogram_container_style");
+            this.histogramimg.style.cssText = "height: " + this.height + "px !important;" + "width: " + this.width + "px;";
+        }
+
+        fei.jsimg.histogram.prototype._draw_container_rows = function () {
+            this.rows = document.createElement("li"); //行的集合：结构为<li>｛div集合｝</li>
+            this.addclass(this.rows, "fei_histogram_container_rows_style");
+            this.rows.style.cssText = "height:" + this.height + "px";
+
+            var xheigth = this.height / this.x.length; //行之间的间隔
+            for (var i = this.x.length - 1; i >= 0; i--) {
+                var row = document.createElement("div"); //单行：div
+                row.style.cssText = "height:" + (xheigth - 1) + "px";
+
+                var row_p = document.createElement("p"); //行的刻度文字：x轴刻度
+                if (this.dataformat == "" || !this.dataformat) {
+                    row_p.innerHTML = this.x[i].toString();
+                }
+                else {
+                    row_p.innerHTML = this.dataformat.replace("{0}", this.x[i].toString());
+                }
+                row.appendChild(row_p);
+
+                this.rows.appendChild(row);
+            }
+            this.histogramimg.appendChild(this.rows);
+        }
+
+        fei.jsimg.histogram.prototype._draw_container_cols = function () {
+            var ywidth = this.width / this.data.length; //算出列宽
+            var col_ul_li_left = (ywidth - this.barwidth) / 2;
+            for (var i = 0; i < this.data.length; i++) {
+                var col = document.createElement("li"); //列：li
+                var left = i * ywidth; //列到x轴的距离
+                this.addclass(col, "fei_histogram_container_col_style");
+                col.style.cssText = "left: " + left + "px;height:" + (this.height + 1) + "px;width: " + ywidth + "px;";
+                col.innerHTML = this.y[i].toString() + "<br/>";
+                if (this.isshowHq && this.data[i] == this.max_data) {
+                    col.innerHTML += this.hqImg;
+                }
+
+
+                /*---柱子---*/
+                var barul = document.createElement("ul");
+                var barli = document.createElement("li");
+                if (this.dataformat == "" || !this.dataformat) {
+                    barli.innerHTML = this.data[i].toString();
+                }
+                else {
+                    barli.innerHTML = this.dataformat.replace("{0}", this.data[i].toString());
+                }
+                barli.style.cssText = "height: " + this.data[i] * this.height / this.max_x + "px;" +
+                    "left: " + col_ul_li_left + "px;width: " + this.barwidth + "px;" +
+                    "background: url('" + this.vbarBg + "') no-repeat scroll 0 0 #12bea8;";
+                barul.appendChild(barli);
+
+
+                col.appendChild(barul);
+
+                this.histogramimg.appendChild(col);
+            }
+        }
+
+        fei.jsimg.histogram.prototype.addclass = function (elements, value) {
+            if (!elements.className) {
+                elements.className = value;
+            }
+            else {
+                newClass = elements.className;
+                newClass += " ";
+                newClass += value;
+                elements.className = newClass;
+            }
+        }
+
+        fei.jsimg.histogram.prototype.render = function (id) {
+            this.container = document.getElementById(id);
+            this.draw();
+            this.container.appendChild(this.histogramimg);
+        }
+
+    </script>
+</div>
+</body>
+</html>
