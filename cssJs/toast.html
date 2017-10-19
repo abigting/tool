@@ -63,7 +63,7 @@
         .btn{
             background:#12bea8;
             color: white;
-            width:8rem;
+            width:12rem;
             margin-top: 2rem;
             margin-left: 2rem;
             font-size: 16px;
@@ -136,6 +136,7 @@
             right: -10px;
             top: -10px;
             cursor: pointer;
+            opacity: 1;
         }
         .main .tip {
             width: 200px;
@@ -144,8 +145,8 @@
             text-align: center;
             letter-spacing: 2px;
             position: absolute;
-            right: 20px;
-            bottom: 60px;
+            right: 2px;
+            bottom:47px;
             background: url(img/cover_white.png) repeat;
             border: 1px solid white;
             border-radius: 8px;
@@ -159,6 +160,45 @@
             position: fixed;
             background: url(img/cover.png) repeat;
             z-index: 100;
+        }
+        /*对话框*/
+        .toast_talk{
+            position: relative;
+            width: 400px;
+            text-align: center;
+            line-height: 100px;
+            color: #12bea8;
+            border: 8px solid #12bea8;
+            margin-left: 4rem;
+            left: 15rem;
+            top: -6rem;
+            display: none;
+        }
+        .toast_talk:before
+        {
+            content: ' ';
+            position: absolute;
+            left: -50px;
+            top:23px;
+            width: 0;
+            height: 0;
+            border-top: 25px solid transparent;
+            border-right:50px solid #12bea8;
+            border-bottom:25px solid transparent;
+
+        }
+        .toast_talk:after
+        {
+            content: ' ';
+            position: absolute;
+            left: -37px;
+            top:23px;
+            width: 0;
+            height: 0;
+            border-top: 25px solid transparent;
+            border-right:50px solid #fff;
+            border-bottom:25px solid transparent;
+
         }
 </style>
 </head>
@@ -206,10 +246,16 @@
         </div>
         <div class="cover" id="cover"></div>
     </div>
+    <div class="row">
+        <button onclick="ShowTalk('toast_talk')" class="btn">弹出对话框</button>
+        <div class="toast_talk">
+            弹出对话框  CSS3 border-radius实现气泡对话框效果
+        </div>
+    </div>
 </div>
 </body>
 <script>
-//        文字弹窗
+/*  文字弹窗*/
     var CheckInfo = function(){};
     CheckInfo.prototype = {
         toast:function(a){
@@ -236,7 +282,7 @@
             check.toast('请输入姓名');
         })
     })
-    //    图片弹窗
+/*图片弹窗*/
     //弹出隐藏层
     function ShowDiv(show_div,bg_div){
         $("#toast_picture").fadeIn(1000);
@@ -252,7 +298,7 @@
         $("#toast_picture").fadeOut(1000);
         $("#fade").fadeOut(1000);
     };
-//    弹出界面
+   //    弹出界面
      //弹出隐藏层
         function ShowDivs( ){
             $("#toast_view").fadeIn(1000);
@@ -274,7 +320,7 @@
             });
             $("#cover").fadeOut();
         });
-        var i = 5;
+        var i = 30;
         var timer = setInterval(function () {
             i--;
             if (i == -1) {
@@ -287,13 +333,19 @@
             }
             $(".tip span").text(i);
         }, 1000);
-
-        $("#brand ul li:eq(0)").css("margin-right", "20px");
-        $("#brand ul li:eq(2)").css({
-            "margin-right": "20px",
-            "margin-bottom": "0px"
-        });
-        $("#brand ul li:eq(3)").css("margin-bottom", "0px");
     });
+</script>
+<!--点击出现对话框-->
+<script>
+    i=0;
+    function ShowTalk( ){
+        i++;
+        if(i%2==0){
+        $(".toast_talk").css("display","none");
+        }
+        else{
+        $(".toast_talk").css("display","block");
+        }
+    }
 </script>
 </html>
