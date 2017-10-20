@@ -7,6 +7,9 @@
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <title>弹窗</title>
     <style>
+        body{
+            background:#E6F0F3;
+        }
         .toast{
             text-align: center;
             position:absolute;
@@ -196,10 +199,47 @@
             width: 0;
             height: 0;
             border-top: 25px solid transparent;
-            border-right:50px solid #fff;
+            border-right:50px solid #E6F0F3;;
             border-bottom:25px solid transparent;
 
         }
+        /*鼠标悬停微信图标显示二维码*/
+        .weixin{
+            width:30px;
+            height:30px;
+            margin:400px auto;
+            position:relative;
+            font-size:12px;
+            text-align:center;}
+        /*注释打开明暗效果替换  下面替掉*/
+        .weixin a img{
+            width:30px; height:30px;
+        } /*微信图标*/
+        .weixin .weixin_nr{
+            width:112px;
+            height:112px;
+            /*padding:10px;*/
+            background:#fff;
+            text-align:center;
+            position:absolute;
+            left:-38px;
+            top:-127px;
+            display:none;
+        }
+        .weixin .weixin_nr img{
+            margin-bottom:-5px;
+        }
+        .weixin .weixin_nr .arrow{
+            width:0;
+            height:0;
+            border-top:10px solid #fff;
+            border-left:10px solid transparent;
+            border-right:10px solid transparent;
+            position:absolute; left:44px;
+            top:112px;
+        }
+        .weixin.on .weixin_nr{ display:block;}
+
 </style>
 </head>
 <body>
@@ -251,6 +291,20 @@
         <div class="toast_talk">
             弹出对话框  CSS3 border-radius实现气泡对话框效果
         </div>
+    </div>
+    <div class="row">
+     <!--   鼠标悬停微信图标显示二维码    -->
+        <div class="weixin" onmouseover="this.className = 'weixin on';" onmouseout="this.className = 'weixin';">
+            <a href="javascript:;">
+                <img src="img/erweima.png" alt=""/>
+            </a>
+            <div class="weixin_nr">
+                <div class="arrow"></div>
+                <img src="img/erweima.png" width="100" height="100" />
+                关注官方微信
+            </div>
+        </div>
+        <!--代码部分end-->
     </div>
 </div>
 </body>
