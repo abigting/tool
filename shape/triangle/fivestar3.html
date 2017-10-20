@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <meta name="keywords" content="jquery,rating,raty,voto,star,staring,classificacao,classificar,votar,plugin" />
+    <meta name="description" content="jQuery Raty - A Star Rating Plugin" />
+
+    <title>jQuery Raty - A Star Rating Plugin</title>
+    <script type="text/javascript" charset="utf-8" src="js/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/jquery.raty.min.js"></script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-194992347-3']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</head>
+<body>
+<div id="half"></div>
+
+    <script type="text/javascript">
+        $(function() {
+
+            $('#default').raty();
+
+            $('#fixed').raty({
+                readOnly	: true,
+                score		: 2
+            });
+
+            $('#score').raty({
+                score: function() {
+                    return $(this).attr('data-rating');
+                }
+            });
+
+            $('#anyone').raty({
+                readOnly	: true,
+                noRatedMsg	: 'anyone rated this product yet!'
+            });
+
+            $('#number').raty({
+                scoreName	: 'entity.score',
+                number		: 10
+            });
+
+            $('#click').raty({
+                click: function(score, evt) {
+                    alert('ID: ' + $(this).attr('id') + '\nscore: ' + score + '\nevent: ' + evt);
+                }
+            });
+
+            $('#cancel').raty({
+                cancel: true
+            });
+
+            $('#cancel-custom').raty({
+                cancel		: true,
+                cancelHint	: 'remove my rating!',
+                cancelPlace	: 'right',
+                click		: function(score, evt) {
+                    alert('score: ' + score);
+                }
+            });
+
+            $('#half').raty({
+                half	: true,
+                score	: 3.3
+            });
+
+            $('#round').raty({
+                score	: 1.26,
+                round	: { down: .25, full: .6, up: .76 }
+            });
+
+            $('#icon').raty({
+                hints		: ['a', '', null, 'd', '5'],
+                path		: 'doc/img/',
+                starOn		: 'medal-on.png',
+                starOff		: 'medal-off.png'
+            });
+
+            $('#range').raty({
+                iconRange	: [
+                    { range: 2, on: 'face-a.png', off: 'face-a-off.png' },
+                    { range: 3, on: 'face-b.png', off: 'face-b-off.png' },
+                    { range: 4, on: 'face-c.png', off: 'face-c-off.png' },
+                    { range: 5, on: 'face-d.png', off: 'face-d-off.png' }
+                ],
+                path		: 'doc/img/'
+            });
+
+            $('#big').raty({
+                cancel		: true,
+                cancelOff	: 'cancel-off-big.png',
+                cancelOn	: 'cancel-on-big.png',
+                half		: true,
+                path		: 'doc/img/',
+                size		: 24,
+                starOff		: 'star-off-big.png',
+                starOn		: 'star-on-big.png',
+                starHalf	: 'star-half-big.png'
+            });
+
+            $('.group').raty();
+
+            $('#target').raty({
+                cancel		: true,
+                cancelHint	: 'none',
+                target		: '#hint'
+            });
+
+            $('#format').raty({
+                cancel			: true,
+                cancelHint		: 'Sure?',
+                target			: '#hint-format',
+                targetFormat	: 'your score: {score}',
+                targetKeep		: true,
+                targetText		: 'none'
+            });
+
+            $('#target-number').raty({
+                cancel		: true,
+                target		: '#score-target',
+                targetKeep	: true,
+                targetType	: 'number'
+            });
+
+            $('#target-out').raty({
+                target		: '#hint-out',
+                targetText	: '--'
+            });
+
+            $('#mouseover').raty({
+                cancel		: true,
+                mouseover	: function(score, evt) {
+                    var target = $('#mouseover-target');
+
+                    if (score === null) {
+                        target.html('Boring!');
+                    } else if (score === undefined) {
+                        target.empty();
+                    } else {
+                        target.html('score: ' + score);
+                    }
+                }
+            });
+
+            $('#precision').raty({
+                half		: true,
+                path		: 'doc/img/',
+                precision	: true,
+                size		: 24,
+                starOff		: 'star-off-big.png',
+                starOn		: 'star-on-big.png',
+                starHalf	: 'star-half-big.png',
+                target		: '#precision-target',
+                targetType	: 'number'
+            });
+
+            $('#space').raty({
+                space: false
+            });
+
+            $('#single').raty({
+                single: true
+            });
+
+            var $result = $('#result').raty();
+
+            $('.action').raty({
+                click: function(score, evt) {
+                    $(this).raty('cancel');
+                    $result.raty('score', score);
+                }
+            });
+
+            $('#function').raty({
+                cancel		: true,
+                cancelHint	: 'Boring!',
+                click		: function(score, evt) {
+                    $(this).fadeOut(function() { $(this).fadeIn(); });
+                },
+                targetKeep	: true,
+                score		: 2,
+                target		: '#hint-function',
+                targetText	: '--'
+            });
+
+            $('.score').click(function() {
+                $('#function').raty('score', this.title);
+            });
+
+            $('.click').click(function() {
+                $('#function').raty('click', this.title);
+            });
+
+            $('.readOnly').click(function() {
+                $('#function').raty('readOnly', (this.title == 'true') ? true : false);
+            });
+
+            $('.cancel').click(function() {
+                $('#function').raty('cancel', (this.title == 'true') ? true : false);
+            });
+
+            $('#reload').click(function() {
+                $('#function').raty('reload');
+            });
+
+            $('#get-score').click(function() {
+                alert($('#function').raty('score'));
+            });
+
+            $('#set-action').on('click', function() {
+                var options = $('#set-id').val();
+
+                eval("$('#function').raty('set', " + options + ");");
+            });
+
+        });
+    </script>
+</body>
+</html>
