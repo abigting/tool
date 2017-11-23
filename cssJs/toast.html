@@ -207,7 +207,7 @@
         .weixin{
             width:30px;
             height:30px;
-            margin:400px auto;
+            margin:20px auto;
             position:relative;
             font-size:12px;
             text-align:center;}
@@ -239,7 +239,31 @@
             top:112px;
         }
         .weixin.on .weixin_nr{ display:block;}
-
+        .bigPho img{
+            width: 52rem;
+            max-height: 60rem;
+        }
+        /*点击图片图片放大*/
+        .imgBox{
+            width:15%;
+            border: 5px solid #2E2D3C;
+        }
+        .bigImgBox{
+            position: fixed;
+            width: 26rem;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%,-50%);
+            -moz-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -o-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            border:5px solid #fff;
+            box-shadow:3px 3px 4px #000;background:#fff;filter:progid:DXImageTransform.Microsoft.Shadow(Strength=4,Direction=135,Color='#000000');
+        }
+        .bigIMG{
+            width: 100%;
+        }
 </style>
 </head>
 <body>
@@ -307,7 +331,27 @@
         <!--代码部分end-->
     </div>
 </div>
+<!--点击图片放大-->
+<div>
+    <img src="http://wx91go.oss-cn-hangzhou.aliyuncs.com/uploads/union/2017/11/18/union_5a0fc3202b983.jpg" alt="" class="imgBox">
+</div>
 </body>
+<!--点击图片放大-->
+<script>
+    $(document).ready(function () {
+        $(".imgBox").click(function(){
+            var imgSrc = $(this).attr("src");
+            console.log(imgSrc);
+            var   html = '<div class="bigImgBox">';
+            html += "<img src="+imgSrc+" alt='' class='bigIMG' >";
+            html += '</div>';
+            $(".container-fluid").append(html);
+            $(".bigImgBox").click(function(){
+                $(this).remove();
+            })
+        })
+    })
+</script>
 <script>
 /*  文字弹窗*/
     var CheckInfo = function(){};
