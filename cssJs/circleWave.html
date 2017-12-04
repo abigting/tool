@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>圆光环</title>
+    <style>
+        .halo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+        .halo:before,
+        .halo:after {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            left: -120px;
+            top: -120px;
+            border-radius: 240px;
+            animation-name: Grow;
+            animation-duration: 10s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            -webkit-animation-name: Grow;
+            -webkit-animation-duration: 8s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-timing-function: linear;
+        }
+        .halo:before {
+            box-shadow: 0px 0px 80px 1px #de6f8a;
+            border: 1px solid #de6f8a;
+        }
+        .halo:after {
+            box-shadow: inset 0px 0px 80px 1px #de6f8a;
+            border: 1px solid #de6f8a;
+        }
+        @-webkit-keyframes Grow {
+            0% {
+                transform: scale(0.1);
+                -ms-transform: scale(0.1);
+                -webkit-transform: scale(0.1);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(0.5);
+                -ms-transform: scale(0.5);
+                -webkit-transform: scale(0.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="halo"></div>
+</body>
+</html>

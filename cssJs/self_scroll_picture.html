@@ -1,0 +1,95 @@
+<html ng-app="myNoteApp">
+<head>
+    <meta charset="utf-8">
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        img{
+            width: 500px;
+            height: 300px;
+        }
+        li{
+            float: left;
+        }
+        ul{
+            width: 2000px;
+            list-style: none;
+            position: absolute;
+        }
+        div{
+            width: 500px;
+            height: 300px;
+            /*溢出部分隐藏*/
+            overflow: hidden;
+            margin: 60px auto;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<!--定义了控制器-->
+<div>
+    <ul>
+        <li><img src="img/img4.png"></li>
+        <li><img src="img/img5.png"></li>
+        <li><img src="img/img6.png"></li>
+        <li><img src="img/img7.png"></li>
+        <li><img src="img/img8.png"></li>
+    </ul>
+    <ul id="round_ul">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script type="text/javascript">
+        //页面加载完成后 执行代码
+        window.onload = function(){
+            //获取 ul
+            var imgUl = document.getElementsByTagName("ul")[0];
+            var groundUl = document.getElementById("round_ul");
+
+            //把第一个小白点修改成红色children 节点的子节点(不算空白节点)
+            groundUl.children[0].style.backgroundColor = "red";
+
+            var sId,x = 0;
+            //开始计时器函数
+
+            function fn(){
+                sId = setInterval(abc,10);
+            }
+            function abc(){
+
+                //每隔10秒修改ul的坐标,修改1px
+                imgUl.style.left = x-- +"px";
+                //如果一张图片完全进入到div中
+                if(x % 500 == 0){
+                    //调用修改小白点函数
+                    if(x == -2000){
+                        x = 0;
+                        imgUl.style.left = 0 +"px";
+                    }
+                    changLi(Math.abs(x/500));//调用修改小白点方法
+                    clearInterval(sId);//暂定定时器
+                    setTimeout(fn,1000);//隔100毫秒在次启动定时器
+
+                }
+            }
+            fn();
+//修改小白点方法
+            function changLi(num){
+                //遍历小白点数组
+                for(var x = 0;x<4;x++){
+
+                    //把所有的点修改成蓝色
+                    groundUl.children[x].style.backgroundColor = "#2196f3";
+                }
+                //把相对应的小白点修改成红色
+                groundUl.children[num].style.backgroundColor = "red";
+            }
+        }
+    </script>
+</body>
+</html>

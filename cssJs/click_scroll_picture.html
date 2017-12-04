@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <title>Title</title>
+    <style>
+        /*轮播图 左右按钮 小白点*/
+        #second_div{
+            margin-top: 160px;
+        }
+        .img_box{
+            overflow: hidden;
+            width:100%;
+            height:420px;
+            position:relative;
+        }
+        .img_box img{
+            width:100%;
+            position:absolute;
+        }
+        .ul5{
+            list-style: none;
+            position:absolute;
+            /*left:580px;*/
+            top:549px;
+        }
+        .ul5 li{
+            float:left;
+            margin-left:20px;
+            width:8px;
+            height:8px;
+            border-radius: 50%;
+            background:#fff;
+        }
+        .d1,.d2{
+            width:50px;
+            height:60px;
+            background-color: rgba(10,10,10,0.5);
+            text-align: center;
+            font-size:26px;
+            line-height:60px;
+            cursor: pointer;
+        }
+        .d1{
+            position:absolute;
+            top:373px;
+            /*left:25px;*/
+        }
+        .d2{
+            position:absolute;
+            top:373px;
+            /*left:1445px;*/
+        }
+    </style>
+</head>
+<body>
+<!-- 轮播图 -->
+<div id="second_div">
+    <div class="img_box">
+        <img src="img/img3.png">
+        <img src="img/img4.png">
+        <img src="img/img5.png">
+        <img src="img/img6.png">
+    </div>
+    <ul class="ul5">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <div class="d1"><</div>
+    <div class="d2">></div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+//        获得img_box的宽和高
+        var _width=$(".img_box").outerWidth();
+        var _height=$(".img_box").outerHeight();
+        ul_left= _width/2;
+        d2_left= _width-50+"px";
+        $(".d1").css("left","20px");
+        $(".d2").css("left",d2_left);
+        $(".ul5").css("left",ul_left);
+//搜索按钮
+        $("#ss").click(function(){
+            var new_li = $("<li>"+ $("#skuang").val() +"</li>");
+            $("#d1 ul").append(new_li);
+            $("#d1").hide();
+            $("#skuang").val("");
+
+        })
+
+        $("#skuang").focus(function(){
+            $("#d1").css("display","block");
+        });
+
+        $("#skuang").blur();
+        $("#qingch").click(function(){
+            $("#d1 li:gt(0)").remove();
+            $("#d1").hide();
+
+        });
+
+//轮播图
+        var img=$(".img_box img");
+        var li=$(".ul5 li");
+        var divW=$(".img_box").width();
+        var len=$(".img_box img").length;
+        img.css("left",divW);
+        img.eq(0).css("left",0);
+        li.eq(0).css("background","red");
+        var index=0;
+        var next=0;
+        function show(){
+            next++;
+            if(next==len){
+                next=0;
+            }
+            img.eq(next).css("left",divW);
+            img.eq(index).animate({"left":-divW});
+            img.eq(next).animate({"left":0});
+            li.eq(next).css("background","red");
+            li.eq(index).css("background","#fff");
+            index=next;
+        }
+        t=setInterval(show,2000);
+        function show1(){
+            next--;
+            if(next==-1){
+                next=len-1;
+            }
+            img.eq(next).css("left",-divW);
+            img.eq(index).animate({"left":divW});
+            img.eq(next).animate({"left":0});
+            li.eq(next).css("background","red");
+            li.eq(index).css("background","#fff");
+            index=next;
+        }
+        img.hover(function(){
+            clearInterval(t);
+        },function(){
+            t=setInterval(show,2000);
+        })
+        //左右按钮
+        $(".d2").mousedown(function(){
+            clearInterval(t);
+            show();
+        })
+        $(".d2").mousedown(function(){
+            t=setInterval(show,2000);
+        })
+        $(".d1").mousedown(function(){
+            clearInterval(t);
+            show1();
+        })
+        $(".d1").mousedown(function(){
+            t=setInterval(show,2000);
+        })
+        //小白点 点击
+        li.mousedown(function(){
+            num=$(this).index();
+            if(num==next){
+                return;
+            }else if(num<next){
+                clearInterval(t);
+                img.eq(num).css("left",-divW);
+                img.eq(index).animate({"left":divW});
+                img.eq(num).animate({"left":0});
+                li.eq(num).css("background","red");
+                li.eq(index).css("background","#fff");
+                index=num;
+                next=num;
+            }else if(num>next){
+                clearInterval(t);
+                img.eq(num).css("left",divW);
+                img.eq(index).animate({"left":-divW});
+                img.eq(num).animate({"left":0});
+                li.eq(num).css("background","red");
+                li.eq(index).css("background","#fff");
+                index=num;
+                next=num;
+            }
+        })
+        li.mouseup(function(){
+            t=setInterval(show,2000);
+        })
+    })
+</script>
+</body>
+</html>

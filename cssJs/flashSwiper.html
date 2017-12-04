@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+   <style>
+       .demo-wrap {
+           　　width: 900px;
+           　　min-height: 100px;
+           　　margin-left: auto;
+           　　margin-right: auto;
+           　　padding: 100px 50px;
+           　　-webkit-perspective: 800px;
+           　　-moz-perspective: 800px;
+           　　perspective: 800px;
+           　　position: relative;
+           　　top: 0;
+       }
+       .demo-wrap .photos {
+           　　width: 128px;
+           　　height: 100px;
+           　　margin-left: -64px;
+           　　-webkit-transition: -webkit-transform 1s;
+           　　-moz-transition: -moz-transform 1s;
+           　　transition: transform 1s;
+           　　-webkit-transform-style: preserve-3d;
+           　　-moz-transform-style: preserve-3d;
+           　　transform-style: preserve-3d;
+           　　position: absolute;
+           　　left: 50%;
+       }
+       .demo-wrap .photos .photo {
+           　　position: absolute;
+           　　bottom: 0;
+           　　width: 128px;
+           　　height: 80px;
+       }
+       .demo-wrap .photos .photo img {
+           　　width: 100%;
+           　　height: 100%;
+       }
+       .demo-wrap .photos .photo:nth-child(1) {
+           　　background: #FCDBDB;
+           　　transform: rotateY(0) translateZ(194.5px); //rotate 一定要写在前面！这里是一个坑，有兴趣的同学可以去看下为什么
+       }
+       .demo-wrap .photos .photo:nth-child(2) {
+           　　background: #F8C8AD;
+           　　transform: rotateY(45deg) translateZ(194.5px);
+       }
+       .demo-wrap .photos .photo:nth-child(3) {
+           　　background: #EBF48D;
+           　　transform: rotateY(90deg) translateZ(194.5px);
+       }
+       .demo-wrap .photos .photo:nth-child(4) {
+           　　background: #62E2BA;
+           　　transform: rotateY(135deg) translateZ(194.5px);
+       }
+       .demo-wrap .photos .photo:nth-child(5) {
+           　　background: #887FF2;
+           　　transform: rotateY(180deg) translateZ(194.5px);
+       }
+       .demo-wrap .photos .photo:nth-child(6) {
+           　　background: #F68CF1;
+           　　transform: rotateY(225deg) translateZ(194.5px);
+       }
+       .demo-wrap .photos .photo:nth-child(7) {
+           　　background: #F9465F;
+           　　transform: rotateY(270deg) translateZ(194.5px);
+       }
+       .demo-wrap .photos .photo:nth-child(8) {
+           　　background: #5DD21A;
+           　　transform: rotateY(315deg) translateZ(194.5px);
+       }
+   </style>
+</head>
+<body>
+<div class="demo-wrap">
+    　　<div class="photos" id="photos">
+    　　　　<div class="photo"><img src="img/adertise.jpg"></div>
+    　　　　<div class="photo"><img src="img/adertise.jpg"></div>
+    　　　　<div class="photo"><img src="img/adertise.jpg"></div>
+    　　　　<div class="photo"><img src="img/adertise.jpg"></div>
+    　　　　<div class="photo"><img src="img/adertise.jpg"></div>
+    　　　　<div class="photo"><img src="img/adertise.jpg"></div>
+    　　　　<div class="photo"><img src="img/adertise.jpg"></div>
+    　　　　<div class="photo"><img src="img/adertise.jpg"></div>
+    　　</div>
+</div>
+<script>
+    var photoWrap = document.getElementById("photos");
+    var photo = document.getElementsByClassName("photo");
+    var deg = 0;
+    photoWrap.addEventListener("click", function(e) {
+        var deg2 = 360 / photo.length;
+        deg += deg2;
+        this.style.webkitTransform = "rotateY(" + deg + "deg)";
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <title>点击登录按钮弹出登录层(HTML+CSS+JS)_懒人建站 http://www.51xuediannao.com</title>
+    <style>
+        body {
+            margin:0;
+            padding:0;
+            font:13px/16px "Lucida Grande", Arial, Sans-serif;
+            color:#789;
+            background-color: #ddeef6;
+            background-repeat: repeat;
+        }
+        #container {
+            width:780px;
+            margin:0 auto;
+            position: relative;
+        }
+
+        #content {
+            width:520px;
+            min-height:500px;
+        }
+        a:link, a:visited {
+            color:#27b;
+            text-decoration:none;
+        }
+        a:hover {
+            text-decoration:underline;
+        }
+        a img {
+            border-width:0;
+        }
+        #topnav {
+            padding:10px 0px 12px;
+            font-size:11px;
+            line-height:23px;
+            text-align:right;
+        }
+        #topnav a.signin {
+            background:#88bbd4;
+            padding:4px 6px 6px;
+            text-decoration:none;
+            font-weight:bold;
+            color:#fff;
+            -webkit-border-radius:4px;
+            -moz-border-radius:4px;
+            border-radius:4px;
+            *padding:4px 12px 6px;
+        }
+        #topnav a.signin:hover {
+            background:#59B;
+            *padding:4px 12px 6px;
+        }
+        #topnav a.signin, #topnav a.signin:hover {
+            *background-position:0 3px!important;
+        }
+
+        a.signin {
+            position:relative;
+            margin-left:3px;
+        }
+        a.signin span {
+            background-repeat:no-repeat;
+            background-position:100% 50%;
+            padding:4px 16px 6px 0;
+        }
+        #topnav a.menu-open {
+            background:#ddeef6!important;
+            color:#666!important;
+            outline:none;
+        }
+        #small_signup {
+            display:inline;
+            float:none;
+            line-height:23px;
+            margin:25px 0 0;
+            width:170px;
+        }
+        a.signin.menu-open span {
+            color:#789;
+        }
+
+        #signin_menu {
+            display:none;
+            background-color:#ddeef6;
+            position:absolute;
+            width:210px;
+            z-index:100;
+            border:1px transparent;
+            text-align:left;
+            padding:12px;
+            top: 24.5px;
+            right: 0px;
+            margin-top:5px;
+            margin-right: 0px;
+            *margin-right: -1px;
+            color:#789;
+            font-size:11px;
+        }
+
+        #signin_menu input[type=text], #signin_menu input[type=password] {
+            display:block;
+            -moz-border-radius:4px;
+            -webkit-border-radius:4px;
+            border:1px solid #ACE;
+            font-size:13px;
+            margin:0 0 5px;
+            padding:5px;
+            width:203px;
+        }
+        #signin_menu p {
+            margin:0;
+        }
+        #signin_menu a {
+            color:#6AC;
+        }
+        #signin_menu label {
+            font-weight:normal;
+        }
+        #signin_menu p.remember {
+            padding:10px 0;
+        }
+        #signin_menu p.forgot, #signin_menu p.complete {
+            clear:both;
+            margin:5px 0;
+        }
+        #signin_menu p a {
+            color:#27B!important;
+        }
+        #signin_submit {
+            -moz-border-radius:4px;
+            -webkit-border-radius:4px;
+            border:1px solid #39D;
+            color:#fff;
+            text-shadow:0 -1px 0 #39d;
+            padding:4px 10px 5px;
+            font-size:11px;
+            margin:0 5px 0 0;
+            font-weight:bold;
+        }
+        #signin_submit::-moz-focus-inner {
+            padding:0;
+            border:0;
+        }
+        #signin_submit:hover, #signin_submit:focus {
+            background-position:0 -5px;
+            cursor:pointer;
+        }
+
+        .tipsy-inner {
+            padding:10px 15px;
+            line-height:1.5em;
+            font-weight:bold;
+        }
+        .tipsy {
+            opacity:.8;
+            filter:alpha(opacity=80);
+            background-repeat:no-repeat;
+            padding:5px;
+        }
+        .tipsy-inner {
+            padding:8px 8px;
+            max-width:200px;
+            font:11px 'Lucida Grande', sans-serif;
+            font-weight:bold;
+            -moz-border-radius:4px;
+            -khtml-border-radius:4px;
+            -webkit-border-radius:4px;
+            border-radius:4px;
+            background-color:#000;
+            color:white;
+            text-align:left;
+        }
+        .tipsy-north {
+            background-position:top center;
+        }
+        .tipsy-south {
+            background-position:bottom center;
+        }
+        .tipsy-east {
+            background-position:right center;
+        }
+        .tipsy-west {
+            background-position:left center;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="topnav" class="topnav">点击右边的按钮试试? <a href="login" class="signin"><span>登录</span></a> </div>
+    <fieldset id="signin_menu">
+        <form method="post" id="signin" action="https://twitter.com/sessions">
+            <label for="username">Username or email</label>
+            <input id="username" name="username" value="" title="username" tabindex="4" type="text">
+            </p>
+            <p>
+                <label for="password">Password</label>
+                <input id="password" name="password" value="" title="password" tabindex="5" type="password">
+            </p>
+            <p class="remember">
+                <input id="signin_submit" value="Sign in" tabindex="6" type="submit">
+                <input id="remember" name="remember_me" value="1" tabindex="7" type="checkbox">
+                <label for="remember">Remember me</label>
+            </p>
+        </form>
+    </fieldset>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".signin").click(function(e) {
+            e.preventDefault();
+            $("fieldset#signin_menu").toggle();
+            $(".signin").toggleClass("menu-open");
+        });
+        $("fieldset#signin_menu").mouseup(function() {
+            return false
+        });
+        $(document).mouseup(function(e) {
+            if($(e.target).parent("a.signin").length==0) {
+                $(".signin").removeClass("menu-open");
+                $("fieldset#signin_menu").hide();
+            }
+        });
+    });
+</script>
+<script type='text/javascript'>
+    $(function() {
+        $('#forgot_username_link').tipsy({gravity: 'w'});
+    });
+</script>
+</body>
+</html>

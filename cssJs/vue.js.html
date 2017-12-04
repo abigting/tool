@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>vue.js</title>
+    <link rel="stylesheet" href="styles/demo.css" />
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .content{
+            margin-left: 10%;
+        }
+        th{
+            border:1px solid #dedede ;
+            padding: 8px 15px 8px 15px;
+        }
+        td{
+            border:1px solid #dedede ;
+            padding: 5px 10px 5px 10px;
+        }
+        .btn{
+            padding: 5px 10px 5px 10px;
+            background-color: #179f00;
+            color: #fff;
+        }
+        thead{
+            background-color: #179f00;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <div id="app">
+        <fieldset>
+            <legend>Create New Person</legend>
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" v-model="newPerson.name"/>
+            </div>
+            <div class="form-group">
+                <label>Age:</label>
+                <input type="text" v-model="newPerson.age"/>
+            </div>
+            <div class="form-group">
+                <label>Sex:</label>
+                <select v-model="newPerson.sex">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button :class="'btn'"  @click="createPerson">Create</button>
+            </div>
+        </fieldset>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="person in people">
+                <td>{{ person.name }}</td>
+                <td>{{ person.age }}</td>
+                <td>{{ person.sex }}</td>
+                <td :class="'text-center'"><button :class="'btn'" @click="deletePerson()">Delete</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            newPerson: {
+                name: '',
+                age: 0,
+                sex: 'Male'
+            },
+            people: [{
+                name: 'Jack',
+                age: 30,
+                sex: 'Male'
+            }, {
+                name: 'Bill',
+                age: 26,
+                sex: 'Male'
+            }, {
+                name: 'Tracy',
+                age: 22,
+                sex: 'Female'
+            }, {
+                name: 'Chris',
+                age: 36,
+                sex: 'Male'
+            }]
+        },
+        methods:{
+            createPerson: function(){
+                this.people.push(this.newPerson);
+                // 添加完newPerson对象后，重置newPerson对象
+                this.newPerson = {name: '', age: 0, sex: 'Male'}
+            },
+            deletePerson: function(){
+                // 删一个数组元素
+                this.people.splice(0,1);
+            }
+        }
+    })
+</script>
+
+</html>

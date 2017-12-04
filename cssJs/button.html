@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>login</title>
+    <style type="text/css" media="screen">
+        /* 公用样式 */
+        body{
+            margin:0;
+            height: 0;
+            background-color: #F1F1F1;
+        }
+        .warp{
+            width: 250px;
+            height: 150px;
+            background-color: #5e7c87;
+            float:left;
+            margin:15px 15px;
+            box-shadow: 10px 10px 5px #888888;
+        }
+        .sim-button{
+            line-height: 50px;
+            height: 50px;
+            text-align: center;
+            margin-right: auto;
+            margin-left: auto;
+            margin-top: 50px;
+            width: 60%;
+            cursor: pointer;
+            color: rgba(255,255,255,1);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        /* 效果一 */
+        .button1{
+            -webkit-transition: all 0.5s ;
+            transition: all 0.5s ;
+        }
+        .button1:hover{
+            background-color: rgba(255,255,255,0.2);
+            border-radius:20px;
+        }
+        /* 效果2 */
+        .button2{
+            -webkit-transition: all 0.5s ;
+            transition: all 0.5s ;
+            overflow:hidden;
+            position: relative;
+        }
+        .button2:hover{
+            background-color: rgba(255,255,255,0.2);
+        }
+        .button2>span{
+            -webkit-transition: all 0.3s ;
+            transition: all 0.3s ;
+        }
+        .button2:hover>span{
+            opacity:0;
+        }
+        .button2::after{
+            content:attr(data-text);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: -50px;
+            top: 0;
+            opacity:0;
+            -webkit-transition: all 0.5s ;
+            transition: all 0.5s ;
+        }
+        .button2:hover::after{
+            left:0;
+            opacity:1;
+        }
+        /* 效果三 */
+        .button3{
+            -webkit-transition: all 0.5s ;
+            transition: all 0.5s ;
+            overflow:hidden;
+            position: relative;
+        }
+        .button3:hover{
+            background-color: rgba(255,255,255,0.2);
+        }
+        .button3>span{
+            -webkit-transition: all 0.3s ;
+            transition: all 0.3s ;
+        }
+        .button3:hover>span{
+            opacity:0;
+        }
+        .button3::after{
+            content:attr(data-text);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity:0;
+            -webkit-transform: translate(-9%, -50%) rotate(-9deg);
+            transform: translate(-9%, -50%) rotate(-9deg);
+            -webkit-transition: all 0.3s ;
+            transition: all 0.3s ;
+        }
+        .button3:hover::after{
+            -webkit-transform: translate(0, 0) rotate(0deg);
+            transform: translate(0, 0) rotate(0deg);
+            opacity:1;
+        }
+        /* 效果四 */
+        .button4{
+            position: relative;
+            overflow:hidden;
+        }
+        .button4 span{
+            z-index:2;
+        }
+        .button4::after{
+            content:"";
+            width: 100%;
+            height: 100%;
+            z-index:1;
+            opacity:0;
+            position: absolute;
+            left: 0;
+            top:0;
+            background-color: rgba(255,255,255,0.5);
+            -webkit-transition: all 0.5s ;
+            transition: all 0.5s ;
+        }
+        .button4:hover::after{
+            opacity:1;
+            -webkit-transform: skewX(-180deg) scale(0.5,1);
+            transform: skewX(-180deg) scale(0.5,1);
+        }
+        /* 效果五 */
+        .button5{
+            border:none;
+            position: relative;
+        }
+        .button5::before{
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(255,255,255,0.5);
+            -webkit-transition: all 0.5s ;
+            transition: all 0.5s ;
+        }
+        .button5:hover::before{
+            opacity:0;
+            -webkit-transform: scale(1.2,1.2);
+            transform: scale(1.2,1.2);
+        }
+        .button5::after{
+            content:'';
+            width:100%;
+            height:100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity:0;
+            background-color: rgba(255,255,255,0.5);
+            -webkit-transform: scale(0.5,0.5);
+            transform: scale(0.5,0.5);
+            -webkit-transition: all 0.5s ;
+            transition: all 0.5s ;
+        }
+        .button5:hover::after{
+            opacity:1;
+            -webkit-transform: scale(1,1);
+            transform: scale(1,1);
+        }
+        /* 效果六 */
+        .button6{
+            border:none;
+            position: relative;
+        }
+        .button6::before{
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255,255,255,0.5);
+            -webkit-transition: all 0.5s ;
+            transition: all 0.5s ;
+        }
+        .button6:hover::before{
+            opacity:0;
+            -webkit-transform: scale(0.5,0.5);
+            transform: scale(0.5,0.5);
+        }
+        .button6::after{
+            content:'';
+            width:100%;
+            height:100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity:0;
+            border: 1px solid rgba(255,255,255,0.5);
+            -webkit-transform: scale(1.2,1.2);
+            transform: scale(1.2,1.2);
+            -webkit-transition: all 0.5s ;
+            transition: all 0.5s ;
+        }
+        .button6:hover::after{
+            opacity:1;
+            -webkit-transform: scale(1,1);
+            transform: scale(1,1);
+        }
+        /* 效果七 27*/
+        .button7{
+            border: 1px solid rgba(255,255,255,0.5);
+            -webkit-transition: all 0.5s ;
+            transition: all 0.5s ;
+            overflow:hidden;
+            position: relative;
+        }
+        .button7:hover{
+            border: 1px solid rgba(255,255,255,0);
+        }
+        .button7::before{
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background-color: rgba(255,255,255,0.5);
+            -webkit-transform: translate(-100%, -600%) rotate(9deg);
+            transform: translate(-100%, -600%)  rotate(9deg);
+            -webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+            transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+            -webkit-transition: all 0.5s ;
+            transition: all 0.5s ;
+        }
+        .button7:hover::before{
+            -webkit-transform: translate(0,0);
+            transform: translate(0,0);
+        }
+        /* 效果八 */
+        .button8{
+            color:rgba(255,255,255,1);
+            border:none;
+            position: relative;
+        }
+        .button8:hover>span{
+            letter-spacing: 2px;
+        }
+        .button8::before{
+            content:'';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0;
+            -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+            border-top-width: 1px;
+            border-bottom-width: 1px;
+            border-top-style: solid;
+            border-bottom-style: solid;
+            border-top-color: rgba(255,255,255,0.5);
+            border-bottom-color: rgba(255,255,255,0.5);
+            -webkit-transform: scale(0.1, 1);
+            transform: scale(0.1, 1);
+        }
+        .button8:hover::before{
+            opacity: 1;
+            -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+        }
+        .button8::after{
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height:100%;
+            z-index:1;
+            background-color: rgba(255,255,255,0.25);
+            -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+        .button8:hover::after{
+            opacity:0;
+            -webkit-transform: scale(0.1, 1);
+            transform: scale(0.1, 1);
+        }
+        </style>
+</head>
+   <body>
+<button class="button1">1</button>
+<button class="button2">1</button>
+<button class="button3">1</button>
+<button class="button4">1</button>
+<button class="button5">1</button>
+<button class="button6">1</button>
+<button class="button7">1</button>
+<button class="button8">1</button>
+</body>
