@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>HappyTurntable</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.0.4/echarts-en.common.min.js"></script>
+    <script src="js/jQueryRotate.2.2.js"></script>
+    <style type="text/css">
+        *{padding:0;margin:0}
+        body{
+            text-align: center;
+        }
+        #content{
+            font-family: 微软雅黑;
+            width: 254px;
+            height: 103px;
+            border: 1px solid #cececece;
+            margin: -15rem auto 1rem auto;
+            position: relative;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            overflow-y: auto;
+        }
+        .btn{
+            font-family: 微软雅黑;
+            padding: 5px 25px;
+            line-height: 25px;
+            font-size: 14px;
+            border: 0px;
+            margin-bottom: 3rem;
+        }
+    </style>
+</head>
+<body>
+<div id="echartsPie" style="width: 800px;height:700px;margin: 0 auto;">
+
+</div>
+
+<img id="lotteryBtn" alt="" src="imgs/rotate-static1.png" style="position: relative;top:-466px;left: 0px;" />
+<div id="content"></div>
+<button class="btn" id="punish">奖励</button>
+<button class="btn" id="reward">惩罚</button>
+<button class="clear btn">清空数据</button>
+<button class="reset btn">复位</button>
+<button class="btn" id="sprint">Sprint Name</button>
+
+<script>
+    $("#sprint").click(function(){
+
+    })
+</script>
+<script type="text/javascript">
+    var echartsPie;
+    var json = [
+        {value:5,name:'1元'},
+        {value:5,name:'5元'},
+        {value:5,name:'10元'},
+        {value:30,name:'20元'},
+        {value:30,name:'25元'},
+        {value:15,name:'30元'},
+        {value:5,name:'50元'},
+        {value:3,name:'60元'},
+        {value:2,name:'88元'},
+    ];
+    var option = {
+        title : {
+            text: '开心大转盘',
+            subtext: 'SSW',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} %"
+        },
+        legend: {
+            orient : 'vertical',
+            x : 'left',
+            data:['1元','5元','10元','20元','25元','30元','50元','60元','88元']
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {
+                    show: false,
+                    type: ['pie', 'funnel'],
+                    option: {
+                        funnel: {
+                            x: '25%',
+                            width: '50%',
+                            funnelAlign: 'left',
+                            max: 1548
+                        }
+                    }
+                },
+                restore : {show: true},
+                saveAsImage : {show: false}
+            }
+        },
+        calculable : true,
+        series : [
+            {
+                name:'开心大转盘',
+                type:'pie',
+                radius : '70%',//饼图的半径大小
+                center: ['50%', '50%'],//饼图的位置
+                data:json
+            }
+        ]
+    };
+
+    echartsPie = echarts.init(document.getElementById('echartsPie'));
+    $(function(){
+        echartsPie.setOption(option);
+//        console.log(json);
+//        console.log(json[1].value);
+
+    });
+</script>
+
+<!--指针-->
+<script>
+    var number=0;
+    var i=0;
+    var sum=0;
+    let valueList = [];
+    let sumList = [];
+    $("#punish").click(function () {
+        var angle = Math.random() * 360;
+        var money=0;
+
+        angle = Math.ceil(angle);//0到360的随机整数(向上取整数计算)
+        $("#lotteryBtn").rotate({//旋转
+            angle: 90, //角度
+            duration: 6000, //持续时间
+            animateTo: angle + 2160,
+//          angle是图片上各奖项对应的角度，2160让指针旋转6圈。
+            callback: function () {
+//                console.log(angle);
+                if(angle<=18){
+                    money=1;
+                }
+                else if(angle>18&&angle<=36){
+                    money=5;
+                }
+                else if(angle>36&&angle<=54){
+                    money=10;
+                }
+                else if(angle>54&&angle<=162){
+                    money=20;
+                }
+                else if(angle>162&&angle<=270){
+                    money=25;
+                }
+                else if(angle>270&&angle<=324){
+                    money=30;
+                }
+                else if(angle>324&&angle<=342){
+                    money=50;
+                }
+                else if(angle>342&&angle<=352.8){
+                    money=60;
+                }
+                else{
+                    money=88;
+                }
+
+                sumList = [...sumList,{val:money}];
+                valueList = [...valueList,{val:money,type:1}];
+                valueList.forEach((s,i)=>console.log(`No${i+1},${s.type==0?"罚":"奖"}${s.val}元`))
+//  显示获奖金额
+                number++;
+//              console.log(number);
+                $("#content").append('No'+number+'罚'+''+money+'元'+'<br/>');
+            }
+        });
+
+//复位
+        $(".reset").click(function(){
+            $("#lotteryBtn").rotate({//旋转
+                angle: angle, //角度
+                duration: 600, //持续时间
+                animateTo: 0,
+                callback: function () {
+                    return;
+                }
+            });
+        });
+    });
+    $("#reward").click(function () {
+        var angle = Math.random() * 360;
+        var money=0;
+        $("#lotteryBtn").rotate({//旋转
+            angle: 90, //角度
+            duration: 6000, //持续时间
+            animateTo: angle + 2160,
+//          angle是图片上各奖项对应的角度，2160让指针旋转6圈。
+            callback: function () {
+//                console.log(angle);
+                if(angle<=18){
+                    money=1;
+                }
+                else if(angle>18&&angle<=36){
+                    money=5;
+                }
+                else if(angle>36&&angle<=54){
+                    money=10;
+                }
+                else if(angle>54&&angle<=162){
+                    money=20;
+                }
+                else if(angle>162&&angle<=270){
+                    money=25;
+                }
+                else if(angle>270&&angle<=324){
+                    money=30;
+                }
+                else if(angle>324&&angle<=342){
+                    money=50;
+                }
+                else if(angle>342&&angle<=352.8){
+                    money=60;
+                }
+                else{
+                    money=88;
+                }
+                sumList = [...sumList,{val:money}];
+                valueList = [...valueList,{val:money,type:0}];
+                valueList.forEach((s,i)=>console.log(`No${i+1},${s.type==0?"罚":"奖"}${s.val}元`))
+                sumList.forEach((s,i)=>sum=sum+s.val)
+//  显示获奖金额
+                number++;
+//              console.log(number);
+                $("#content").append('No'+number+'奖'+''+money+'元'+'<br/>');
+            }
+        });
+
+//复位
+        $(".reset").click(function(){
+            $("#lotteryBtn").rotate({//旋转
+                angle: angle, //角度
+                duration: 600, //持续时间
+                animateTo: 0,
+                callback: function () {
+                    return;
+                }
+            });
+        });
+    });
+
+
+
+    //    清零
+    $(".clear").click(function(){
+        $('#content').empty();
+        number=0;
+    });
+
+
+    let data = [{name:'spring6',content:valueList}];
+
+
+</script>
+</body>
+</html>

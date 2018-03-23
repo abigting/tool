@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            if(localStorage.getItem("menuTitle")){
+                var strStoreDate =localStorage.getItem("menuTitle");
+                var json=strStoreDate.split(",")
+            }else{
+                var json = [
+                    {value:5,name:'1元'},
+                    {value:5,name:'5元'},
+                    {value:5,name:'10元'},
+                    {value:30,name:'20元'},
+                    {value:30,name:'25元'},
+                    {value:15,name:'30元'},
+                    {value:5,name:'50元'},
+                    {value:3,name:'60元'},
+                    {value:2,name:'88元'},
+                ];
+                console.log(json);
+            }
+            $('#bt1').on('click',function(){
+                var json = [
+                    {value:5,name:'1元'},
+                    {value:5,name:'5元'},
+                    {value:5,name:'10元'},
+                    {value:30,name:'20元'},
+                    {value:30,name:'25元'},
+                    {value:15,name:'30元'},
+                    {value:5,name:'50元'},
+                    {value:3,name:'60元'},
+                    {value:2,name:'88元'},
+                ];
+                console.log(json);
+//                listArr.push($('#txt').val());
+                localStorage.setItem("menuTitle",json[1].value,json[1].name);
+            });
+        });
+    </script>
+</head>
+<body>
+<input id="txt" type="text">
+<button id="bt1">添加</button>
+</body>
+</html>

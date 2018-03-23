@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            if(localStorage.getItem("menuTitle")){
+                var strStoreDate =localStorage.getItem("menuTitle");
+//                存储名字为name的XXX变量
+                var listArr=strStoreDate.split(",")
+//                将数组串根据，分隔
+            }else{
+//                创建一个数组
+                var listArr = [];
+            }
+            Initi();
+//            添加
+            $('#bt1').on('click',function(){
+//                在数组末尾添加数值
+                listArr.push($('#txt').val());
+//                存储名字为menuTitle的listArr数组
+                localStorage.setItem("menuTitle",listArr);
+                Initi();
+            });
+//            清零
+            $('#bt2').on('click',function(){
+//                清理缓存
+                localStorage.removeItem('menuTitle');
+//                创建listArr数组
+                listArr = [];
+                Initi();
+            });
+//            绑定新生成的删除事件
+            $('#list').on('click','.delteLi',function(){
+//                添加或删除项目
+                listArr.splice(this.parentElement.title,1);
+                localStorage.setItem("menuTitle",listArr);
+                Initi();
+            });
+
+            function Initi(){
+                $('#list li').remove();
+//                遍历数组
+                $.each(listArr,function(index,value){
+                    $('#list ul').append('<li >'+index+'序号'+value+'<a class="delteLi" style="color:red;float:right;">删除</a>'+'</li>');
+                });
+            }
+        });
+    </script>
+
+    <style type="text/css">
+        body{
+            width: 500px;
+            height: auto;
+            margin: 0 auto;
+            border:1px solid #ccc;
+            padding:20px;
+        }
+        #list{
+            width: 500px;
+            height: auto;
+            margin-top: 20px;
+            border: red solid 1px;
+        }
+        #list li:nth-child(odd){
+            background: #ccc;
+        }
+        #list li:nth-child(even){
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+<input id="txt" type="text">
+<button id="bt1">添加</button>
+<button id="bt2">清空</button>
+<div id="list">
+    <ul></ul>
+</div>
+</body>
+</html>
