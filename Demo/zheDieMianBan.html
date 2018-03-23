@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <style>
+        /*tab切换的css*/
+        #wrap {width:100%; margin:0 auto; overflow: hidden;}
+        #tit {height: 35px;width:100%;}
+        #tit span {float: left; height: 30px; line-height: 30px; width: 25%; font-size: 20px; text-align: center; color: #333;cursor: pointer}
+        #con div{display: none; height: auto; width: 100%; background: pink;font-size: 100px;line-height: 200px;}
+        #tit span.select {border-bottom: 3px solid #009933; color: #009933;}
+        #con div.show {display: block;width: 100%}
+    </style>
+    <style>
+        /*问题和答案所需要的css*/
+        *{margin: 0;padding: 0}
+        body{font-size: 12px;font-family: "微软雅黑";}
+        ul{width: 100%}
+        ul,li{list-style: none;}
+        a:link,a:visited{text-decoration: none;color: #fff;}
+        .list{width: 100%;border-bottom:solid 1px #316a91;margin:0 auto;}
+        .list ul li{background-color:#467ca2; border:solid 1px #316a91; border-bottom:0;}
+        .list ul li a{padding-left: 10px;color: #fff; font-size:12px; display: block; font-weight:bold; height:36px;line-height: 36px;position: relative;
+        }
+        .list ul li .inactive{ background:url(http://images.cnblogs.com/cnblogs_com/heyiming/947284/t_help.png) no-repeat right;}
+        .list ul li .inactive{ background-size:16px 27px;}
+        .list ul li .inactives{background:url(http://images.cnblogs.com/cnblogs_com/heyiming/947284/t_helpbot.png) no-repeat  right;}
+        .list ul li .inactives{background-size: 27px 16px;}
+        .list ul li ul{display: none;}
+        .list ul li ul li { border-left:0; border-right:0; background-color:#6196bb; border-color:#467ca2;}
+        .list ul li ul li ul{display: none;}
+        .list ul li ul li a{ padding-left:20px;}
+        .list ul li ul li ul li { background-color:#d6e6f1; border-color:#6196bb; }
+        .last{ background-color:#d6e6f1; border-color:#6196bb; }
+        .list ul li ul li ul li a{ color:#316a91; padding-left:30px;}
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="tit">
+        <span class="select">TAB1</span>
+    </div>
+    <ul id="con">
+        <div class="show div1"><!--装问题和答案的盒子-->
+            <!--第一块的问题和答案开始-->
+            <div class="list" style="display: block">
+                <ul class="yiji">
+                    <li><a href="javascript:void(0)" class="inactive">TAB1-问题1</a>
+                        <ul style="display: none">
+                            <li class="last"><a href="javascript:void(0)">TAB1-答案1</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="javascript:void(0)" class="inactive">TAB1-问题2</a>
+                        <ul style="display: none">
+                            <li class="last"><a href="javascript:void(0)">TAB1-答案2</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--第一块的问题和答案结束-->
+        </div>
+    </ul>
+</div>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+    /*tab切换所需要的js*/
+    $(document).ready(function() {
+        $('.inactive').click(function(){
+            if($(this).siblings('ul').css('display')=='none'){
+                $(this).parent('li').siblings('li').removeClass('inactives');
+                $(this).addClass('inactives');
+                $(this).siblings('ul').slideDown(100).children('li');
+                if($(this).parents('li').siblings('li').children('ul').css('display')=='block'){
+                    $(this).parents('li').siblings('li').children('ul').parent('li').children('a').removeClass('inactives');
+                    $(this).parents('li').siblings('li').children('ul').slideUp(100);
+
+                }
+            }else{
+                //控制自身变成+号
+                $(this).removeClass('inactives');
+                //控制自身菜单下子菜单隐藏
+                $(this).siblings('ul').slideUp(100);
+                /*
+                //控制自身子菜单变成+号
+                $(this).siblings('ul').children('li').children('ul').parent('li').children('a').addClass('inactives');
+                */
+                //控制自身菜单下子菜单隐藏
+                $(this).siblings('ul').children('li').children('ul').slideUp(100);
+
+                //控制同级菜单只保持一个是展开的（-号显示）
+                $(this).siblings('ul').children('li').children('a').removeClass('inactives');
+            }
+        })
+    });
+</script>
+<script>
+    /*问题-答案的js*/
+    $('#tit span').click(function() {
+        var i = $(this).index();//下标第一种写法
+        //var i = $('tit').index(this);//下标第二种写法
+        $(this).addClass('select').siblings().removeClass('select');
+        $('#con .div1').eq(i).show().siblings().hide();
+    });
+</script>
