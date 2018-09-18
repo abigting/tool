@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="./js/exif.min.js"></script>
+    <title>解决IOS图片上传后旋转问题</title>
+</head>
+<body>
+<img src="" alt="" id="img">
+<input type="file" accept="image/*" capture="camera" id="photo"/>
+</body>
+<script>
+    let photo = document.getElementById("photo");
+    img = document.getElementById("img");
+    photo.onchange = function () {
+        change(photo)
+    };
+    function change(s) {
+        if (typeof (FileReader) === 'undefined') {
+            console.log("抱歉，你的浏览器不支持 FileReader，请使用现代浏览器操作！");
+            return;
+        }
+        let file = s.files[0];           //获取文件对象
+
+        if (file && file.type) {
+            if (!/image/.test(file.type)) {
+                message.error('请上传图片');
+                return;
+            }
+            let reader = new FileReader();
+            reader.readAsDataURL(file);         //读取图片文件
+            reader.onload = function () {
+                console.log("压缩前：" + this.result.length / 1024 + " " + this.result);
+                dealImage(this.result, function (base) {
+                    img.setAttribute("src", base);
+                    console.log("压缩后：" + base.length / 1024 + " " + base);
+                })
+            }
+        }
+    }
+    function t(t) {
+        var e = new Image;
+        return e.src = t.toDataURL("image/jpeg"), e
+    }
+
+    function e(t) {
+        var e = (t.naturalWidth, t.naturalHeight), a = document.createElement("canvas");
+        a.width = 1, a.height = e;
+        var r = a.getContext("2d");
+        r.drawImage(t, 0, 0);
+        for (var n = r.getImageData(0, 0, 1, e).data, i = 0, o = e, g = e; g > i;) {
+            var s = n[4 * (g - 1) + 3];
+            0 === s ? o = g : i = g, g = o + i >> 1
+        }
+        var c = g / e;
+        return 0 === c ? 1 : c
+    }
+
+    function a(t, a, r, n, i, o, g, s, c, u) {
+        var d = e(a);
+        t.drawImage(a, r * d, n * d, i * d, o * d, g, s, c, u)
+    }
+
+    function dealImage(path, callback) {
+        let g = new Image();
+        let s = document.createElement('canvas');
+        var u = s.getContext("2d");
+        let r = new Image();
+        r.src = path;
+        r.onload = function () {
+            let n = 200;
+            let o = this.width, d = this.height, h = 1;
+            EXIF.getData(this, function () {
+                h = parseInt(EXIF.getTag(this, "Orientation")), h = h ? h : 1
+            });
+            var l = n * d / o;
+            if (10 > o || 10 > d) {
+                message.error('人物图像小于5k');
+            }
+            else {
+                (4 >= h ? (s.setAttribute("height", l), s.setAttribute("width", n), (3 === h || 4 === h) && (u.translate(n, l), u.rotate(180 * Math.PI / 180)))
+                    : (s.setAttribute("height", n), s.setAttribute("width", l), 5 === h || 6 === h ? (u.translate(l, 0), u.rotate(90 * Math.PI / 180)) : (7 === h || 8 === h) && (u.translate(0, n), u.rotate(270 * Math.PI / 180))), a(u, r, 0, 0, o, d, 0, 0, n, l), g.src = t(s).src, e.value = "", void 0 != callback && callback(g.src), void 0)
+            }
+        }
+
+    };
+
+
+</script>
+</html>
