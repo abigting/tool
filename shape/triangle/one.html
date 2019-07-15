@@ -33,6 +33,13 @@
             border-right: 100px solid transparent;
             border-bottom:50px solid transparent;
         }
+        #triangle-right1{
+            width: 0;
+            height: 0;
+            border-top: 100px solid #12bea8;
+            border-left: 100px solid transparent;
+            border-bottom:50px solid transparent;
+        }
         #trianglecircle{
             width: 0;
             height: 0;
@@ -295,6 +302,19 @@
             border-bottom: 80px solid transparent;
             border-left: 80px solid transparent;
         }
+
+        /*#sugarlearning{*/
+        /*    width: 150px;*/
+        /*    height: 300px;*/
+        /*    background: #CB403F;*/
+        /*}*/
+        /*#sugarlearning:before{*/
+        /*    content: '';*/
+        /*    border-top: 80px solid transparent;*/
+        /*    border-right: 80px solid #CB403F;*/
+        /*    border-bottom: 80px solid #CB403F;*/
+        /*    border-left: 80px solid transparent;*/
+        /*}*/
     </style>
 </head>
 <body>
@@ -302,6 +322,7 @@
 <div id="triangle-down"></div>
 <div id="triangle-left"></div>
 <div id="triangle-right"></div>
+<div id="triangle-right1"></div>
 <div id="trianglecircle"></div>
 <div id="circle"></div>
 <div id="square"></div>
@@ -318,6 +339,29 @@
 <div id="pacman"></div>
 <div id="water"></div>
 <div id="tixing"></div>
+<canvas id="sugarlearning" width="300" height="300" >
+    Your browser does not support the HTML5 canvas tag.</canvas>
+<script type="text/javascript">
 
+    let c=document.getElementById("sugarlearning");
+    let ctx=c.getContext("2d");
+    let draw = function(x1, y1, x2, y2, x3, y3, color, type) {
+        ctx.beginPath();
+        ctx.moveTo(100, 200);
+        ctx.lineTo(100, 50);
+        ctx.lineTo(50, 100);
+        ctx.lineTo(50, 200);
+        ctx[type + 'Style'] = color;
+        ctx.closePath();
+        ctx[type]();
+    }
+
+    ctx.shadowColor = "#000";
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.shadowBlur = 5;
+
+    draw(100,100,100,50,50,100,'red', 'fill')
+</script>
 </body>
 </html>

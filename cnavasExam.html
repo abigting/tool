@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background: #CB403F;
+        }
+    </style>
+</head>
+<body>
+<canvas id="sugarlearning" >
+    Your browser does not support the HTML5 canvas tag.</canvas>
+<script type="text/javascript">
+    // canvas.width = document.documentElement.clientWidth;
+    // canvas.height = document.documentElement.clientHeight;
+
+    let c=document.getElementById("sugarlearning");
+    let ctx=c.getContext("2d");
+    let draw = function(x1, y1, x2, y2, x3, y3, color, type) {
+        ctx.beginPath();
+        ctx.moveTo(100, 200);
+        ctx.lineTo(100, 50);
+        ctx.lineTo(50, 100);
+        ctx.lineTo(50, 200);
+        ctx[type + 'Style'] = color;
+        ctx.closePath();
+        ctx[type]();
+    }
+
+    ctx.shadowColor = "#000";
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.shadowBlur = 5;
+
+    draw(100,100,100,50,50,100,'#fff', 'fill')
+</script>
+</body>
+</html>
